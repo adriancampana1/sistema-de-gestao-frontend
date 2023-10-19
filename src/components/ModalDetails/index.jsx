@@ -14,7 +14,26 @@ import { SlNotebook } from 'react-icons/sl';
 
 import { api } from '../../services/api';
 
+import {
+    Button,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalOverlay,
+    ModalHeader,
+    ModalCloseButton,
+    ModalFooter,
+    useDisclosure,
+    Editable,
+    EditablePreview,
+    EditableTextarea,
+} from '@chakra-ui/react';
+
+import { CustomEditableInput } from '../CustomEditableInput';
+
 export function ModalDetails({ productData }) {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     const [addProducts, setAddProducts] = useState(false);
 
     const [businessTitle, setBusinessTitle] = useState(productData.title);
@@ -116,303 +135,391 @@ export function ModalDetails({ productData }) {
     }
 
     return (
-        <Container>
-            {productData && (
-                <>
-                    <Header>
-                        <div className="business-data">
-                            <div className="business-title">
-                                <h2>{productData.content}</h2>
-                                <IoMdCreate></IoMdCreate>
-                            </div>
-                        </div>
-                        <div className="control-btn">
-                            <button
-                                className="delete-card"
-                                onClick={handleDeleteBusiness}
-                            >
-                                Excluir
-                            </button>
-                        </div>
-                    </Header>
-                    <Content>
-                        <div className="sidebar-col">
-                            <div className="value-products">
-                                <p className="subtitle">Valor do negócio</p>
-                                <div>
-                                    <h2>{productData.price}</h2>
-                                    <span>Produtos/Serviços</span>
-                                    <p className="cost">R$5.436,93</p>
-                                    <span>Lucro na operação:</span>
-                                    <p className="profit">R$3.927,32</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="notes">
-                            <span>
-                                <p>
-                                    <IoIosJournal></IoIosJournal> Adicionar nota
-                                </p>
-                                <button onClick={handleShowAddNotes}>
-                                    + Adicionar nota
-                                </button>
-                            </span>
-                            {addNotes && (
-                                <div className="add-notes">
-                                    <input
-                                        type="text"
-                                        placeholder="Título da nota"
-                                        onChange={(e) =>
-                                            setNoteTitle(e.target.value)
-                                        }
-                                    />
-                                    <textarea
-                                        placeholder="Descrição da nota"
-                                        onChange={(e) =>
-                                            setNoteDescription(e.target.value)
-                                        }
-                                    ></textarea>
-                                    <div className="btn-add-remove">
-                                        <button
-                                            className="btn-remove"
-                                            onClick={handleShowAddNotes}
-                                        >
-                                            Cancelar
-                                        </button>
-                                        <button
-                                            className="btn-add"
-                                            onClick={handleAddNotes}
-                                        >
-                                            Adicionar nota
-                                        </button>
+        <>
+            <Button onClick={onOpen}>Mais detalhes</Button>
+
+            <Modal onClose={onClose} isOpen={isOpen} isCentered size="6xl">
+                <ModalOverlay />
+                <Container>
+                    <ModalContent padding="5">
+                        <ModalHeader paddingTop="20">
+                            <Header>
+                                <div className="business-data">
+                                    <div className="business-title">
+                                        <h2>
+                                            <CustomEditableInput
+                                                title={productData.content}
+                                            ></CustomEditableInput>
+                                        </h2>
                                     </div>
                                 </div>
-                            )}
-                            {notes.length > 0 ? (
+                                <div className="control-btn">
+                                    <button
+                                        className="delete-card"
+                                        onClick={handleDeleteBusiness}
+                                    >
+                                        Excluir
+                                    </button>
+                                </div>
+                            </Header>
+                        </ModalHeader>
+                        <ModalCloseButton size="lg" margin="3" />
+                        <ModalBody>
+                            {productData && (
                                 <>
-                                    {notes.map((note, index) => {
-                                        return (
-                                            <div
-                                                className="note-item"
-                                                key={index}
-                                            >
-                                                <header>
-                                                    <div className="content">
-                                                        <SlNotebook></SlNotebook>
-                                                        <div>
-                                                            <h4>
-                                                                {note.title}
-                                                            </h4>
-                                                            <p>
-                                                                Criada em:
-                                                                {'  '}
-                                                                {
-                                                                    productData.created_at
-                                                                }
-                                                            </p>
+                                    <Content>
+                                        <div className="sidebar-col">
+                                            <div className="value-products">
+                                                <p className="subtitle">
+                                                    Valor do negócio
+                                                </p>
+                                                <div>
+                                                    <h2>{productData.price}</h2>
+                                                    <span>
+                                                        Produtos/Serviços
+                                                    </span>
+                                                    <p className="cost">
+                                                        R$5.436,93
+                                                    </p>
+                                                    <span>
+                                                        Lucro na operação:
+                                                    </span>
+                                                    <p className="profit">
+                                                        R$3.927,32
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="notes">
+                                            <span>
+                                                <p>
+                                                    <IoIosJournal></IoIosJournal>{' '}
+                                                    Adicionar nota
+                                                </p>
+                                                <button
+                                                    onClick={handleShowAddNotes}
+                                                >
+                                                    + Adicionar nota
+                                                </button>
+                                            </span>
+                                            {addNotes && (
+                                                <div className="add-notes">
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Título da nota"
+                                                        onChange={(e) =>
+                                                            setNoteTitle(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    />
+                                                    <textarea
+                                                        placeholder="Descrição da nota"
+                                                        onChange={(e) =>
+                                                            setNoteDescription(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    ></textarea>
+                                                    <div className="btn-add-remove">
+                                                        <button
+                                                            className="btn-remove"
+                                                            onClick={
+                                                                handleShowAddNotes
+                                                            }
+                                                        >
+                                                            Cancelar
+                                                        </button>
+                                                        <button
+                                                            className="btn-add"
+                                                            onClick={
+                                                                handleAddNotes
+                                                            }
+                                                        >
+                                                            Adicionar nota
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {notes.length > 0 ? (
+                                                <>
+                                                    {notes.map(
+                                                        (note, index) => {
+                                                            return (
+                                                                <div
+                                                                    className="note-item"
+                                                                    key={index}
+                                                                >
+                                                                    <header>
+                                                                        <div className="content">
+                                                                            <SlNotebook></SlNotebook>
+                                                                            <div>
+                                                                                <h4>
+                                                                                    {
+                                                                                        note.title
+                                                                                    }
+                                                                                </h4>
+                                                                                <p>
+                                                                                    Criada
+                                                                                    em:
+                                                                                    {
+                                                                                        '  '
+                                                                                    }
+                                                                                    {
+                                                                                        productData.created_at
+                                                                                    }
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <ImBin
+                                                                            className="remove-note"
+                                                                            onClick={() =>
+                                                                                handleRemoveNotes(
+                                                                                    {
+                                                                                        noteID: note.id,
+                                                                                        index,
+                                                                                    }
+                                                                                )
+                                                                            }
+                                                                        ></ImBin>
+                                                                    </header>
+                                                                    <main>
+                                                                        <p>
+                                                                            {
+                                                                                note.description
+                                                                            }
+                                                                        </p>
+                                                                        <span>
+                                                                            Criada
+                                                                            por:
+                                                                            Adrian
+                                                                            Campana
+                                                                        </span>
+                                                                    </main>
+                                                                </div>
+                                                            );
+                                                        }
+                                                    )}
+                                                </>
+                                            ) : (
+                                                <p className="note">
+                                                    Alguma anotação importante?
+                                                    Salve aqui!
+                                                </p>
+                                            )}
+                                        </div>
+                                        <div className="description">
+                                            <div>
+                                                <h2>Descrição detalhada:</h2>
+                                            </div>
+                                            {productData.description ? (
+                                                <p
+                                                    className={`${
+                                                        showBusinessDescription
+                                                            ? 'hide'
+                                                            : ''
+                                                    }`}
+                                                >
+                                                    <Editable
+                                                        defaultValue={
+                                                            productData.description
+                                                        }
+                                                    >
+                                                        <EditablePreview
+                                                            background="white"
+                                                            width="full"
+                                                        />
+                                                        <EditableTextarea />
+                                                    </Editable>
+                                                </p>
+                                            ) : (
+                                                <span
+                                                    className={`${
+                                                        showBusinessDescription
+                                                            ? 'hide'
+                                                            : ''
+                                                    }`}
+                                                >
+                                                    <FcKindle></FcKindle>
+                                                    <p>
+                                                        Nenhuma descrição
+                                                        inserida...
+                                                    </p>
+                                                </span>
+                                            )}
+                                            {showBusinessDescription && (
+                                                <>
+                                                    <textarea
+                                                        onChange={(e) =>
+                                                            setBusinessDescription(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    >
+                                                        {
+                                                            productData.description
+                                                        }
+                                                    </textarea>
+                                                    <div className="btn-add-remove">
+                                                        <button
+                                                            className="btn-remove"
+                                                            onClick={
+                                                                handleShowChangeDescription
+                                                            }
+                                                        >
+                                                            Cancelar
+                                                        </button>
+                                                        <button
+                                                            className="btn-add"
+                                                            onClick={
+                                                                handleChangeDescription
+                                                            }
+                                                        >
+                                                            Adicionar descrição
+                                                        </button>
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
+                                        <div className="profit-calculation">
+                                            <h2>Calculadora de lucro</h2>
+                                            {addProducts ? (
+                                                <>
+                                                    <div className="add-product">
+                                                        <div className="select-product size-2 col">
+                                                            <label htmlFor="business-description">
+                                                                Produto/Serviço
+                                                            </label>
+                                                            <select
+                                                                name="business-description"
+                                                                id="business-description"
+                                                            >
+                                                                <option
+                                                                    value="default"
+                                                                    selected
+                                                                >
+                                                                    Selecione
+                                                                </option>
+                                                                <option value="climatizador">
+                                                                    Climatizador
+                                                                    de Teto
+                                                                </option>
+                                                                <option value="servico">
+                                                                    Instalação
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div className="price size-2 col">
+                                                            <label htmlFor="product-value">
+                                                                Valor unitário:
+                                                            </label>
+                                                            <input
+                                                                type="text"
+                                                                id="product-value"
+                                                                placeholder="R$ 0,00"
+                                                            />
+                                                        </div>
+                                                        <div className="quant-products size-2 col">
+                                                            <label htmlFor="quantity-products">
+                                                                Quant.
+                                                            </label>
+                                                            <input
+                                                                type="number"
+                                                                id="quantity-products"
+                                                                placeholder="0"
+                                                            />
+                                                        </div>
+                                                        <div className="total-value size-2 col">
+                                                            <label htmlFor="total">
+                                                                Total
+                                                            </label>
+                                                            <input
+                                                                type="text"
+                                                                id="total"
+                                                                placeholder="R$ 0,00"
+                                                            />
                                                         </div>
                                                     </div>
-                                                    <ImBin
-                                                        className="remove-note"
-                                                        onClick={() =>
-                                                            handleRemoveNotes({
-                                                                noteID: note.id,
-                                                                index,
-                                                            })
+                                                    <div className="btn-product size-2">
+                                                        <span className="add">
+                                                            <ImCheckmark></ImCheckmark>
+                                                            <p>Adicionar</p>
+                                                        </span>
+                                                        <span
+                                                            className="remove"
+                                                            onClick={
+                                                                handleShowAddProducts
+                                                            }
+                                                        >
+                                                            <ImBin></ImBin>
+                                                            <p>Remover</p>
+                                                        </span>
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <p
+                                                        className="show-add-products"
+                                                        onClick={
+                                                            handleShowAddProducts
                                                         }
-                                                    ></ImBin>
-                                                </header>
-                                                <main>
-                                                    <p>{note.description}</p>
-                                                    <span>
-                                                        Criada por: Adrian
-                                                        Campana
-                                                    </span>
-                                                </main>
+                                                    >
+                                                        <ImPlus></ImPlus>{' '}
+                                                        Adicionar
+                                                        produto/serviço
+                                                    </p>
+                                                </>
+                                            )}
+                                            <div className="product-cardlist">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Produto/serviço
+                                                            </th>
+                                                            <th>Preço unit.</th>
+                                                            <th>Quant.</th>
+                                                            <th>Total</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                Climatizador
+                                                                portátil
+                                                            </td>
+                                                            <td>R$7.345,32</td>
+                                                            <td>1</td>
+                                                            <td>R$7.345,32</td>
+                                                            <td className="btnRemove">
+                                                                <ImBin></ImBin>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Climatizador
+                                                                portátil
+                                                            </td>
+                                                            <td>R$7.345,32</td>
+                                                            <td>1</td>
+                                                            <td>R$7.345,32</td>
+                                                            <td className="btnRemove">
+                                                                <ImBin></ImBin>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                        );
-                                    })}
-                                </>
-                            ) : (
-                                <p className="note">
-                                    Alguma anotação importante? Salve aqui!
-                                </p>
-                            )}
-                        </div>
-                        <div className="description">
-                            <div>
-                                <h2>Descrição detalhada:</h2>
-                                <button onClick={handleShowChangeDescription}>
-                                    + Adicionar descrição
-                                </button>
-                            </div>
-                            {productData.description ? (
-                                <p
-                                    className={`${
-                                        showBusinessDescription ? 'hide' : ''
-                                    }`}
-                                >
-                                    {productData.description}
-                                </p>
-                            ) : (
-                                <span
-                                    className={`${
-                                        showBusinessDescription ? 'hide' : ''
-                                    }`}
-                                >
-                                    <FcKindle></FcKindle>
-                                    <p>Nenhuma descrição inserida...</p>
-                                </span>
-                            )}
-                            {showBusinessDescription && (
-                                <>
-                                    <textarea
-                                        onChange={(e) =>
-                                            setBusinessDescription(
-                                                e.target.value
-                                            )
-                                        }
-                                    >
-                                        {productData.description}
-                                    </textarea>
-                                    <div className="btn-add-remove">
-                                        <button
-                                            className="btn-remove"
-                                            onClick={
-                                                handleShowChangeDescription
-                                            }
-                                        >
-                                            Cancelar
-                                        </button>
-                                        <button
-                                            className="btn-add"
-                                            onClick={handleChangeDescription}
-                                        >
-                                            Adicionar descrição
-                                        </button>
-                                    </div>
+                                            <div className="additional-costs"></div>
+                                        </div>
+                                    </Content>
                                 </>
                             )}
-                        </div>
-                        <div className="profit-calculation">
-                            <h2>Calculadora de lucro</h2>
-                            {addProducts ? (
-                                <>
-                                    <div className="add-product">
-                                        <div className="select-product size-2 col">
-                                            <label htmlFor="business-description">
-                                                Produto/Serviço
-                                            </label>
-                                            <select
-                                                name="business-description"
-                                                id="business-description"
-                                            >
-                                                <option
-                                                    value="default"
-                                                    selected
-                                                >
-                                                    Selecione
-                                                </option>
-                                                <option value="climatizador">
-                                                    Climatizador de Teto
-                                                </option>
-                                                <option value="servico">
-                                                    Instalação
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div className="price size-2 col">
-                                            <label htmlFor="product-value">
-                                                Valor unitário:
-                                            </label>
-                                            <input
-                                                type="text"
-                                                id="product-value"
-                                                placeholder="R$ 0,00"
-                                            />
-                                        </div>
-                                        <div className="quant-products size-2 col">
-                                            <label htmlFor="quantity-products">
-                                                Quant.
-                                            </label>
-                                            <input
-                                                type="number"
-                                                id="quantity-products"
-                                                placeholder="0"
-                                            />
-                                        </div>
-                                        <div className="total-value size-2 col">
-                                            <label htmlFor="total">Total</label>
-                                            <input
-                                                type="text"
-                                                id="total"
-                                                placeholder="R$ 0,00"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="btn-product size-2">
-                                        <span className="add">
-                                            <ImCheckmark></ImCheckmark>
-                                            <p>Adicionar</p>
-                                        </span>
-                                        <span
-                                            className="remove"
-                                            onClick={handleShowAddProducts}
-                                        >
-                                            <ImBin></ImBin>
-                                            <p>Remover</p>
-                                        </span>
-                                    </div>
-                                </>
-                            ) : (
-                                <>
-                                    <p
-                                        className="show-add-products"
-                                        onClick={handleShowAddProducts}
-                                    >
-                                        <ImPlus></ImPlus> Adicionar
-                                        produto/serviço
-                                    </p>
-                                </>
-                            )}
-                            <div className="product-cardlist">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Produto/serviço</th>
-                                            <th>Preço unit.</th>
-                                            <th>Quant.</th>
-                                            <th>Total</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Climatizador portátil</td>
-                                            <td>R$7.345,32</td>
-                                            <td>1</td>
-                                            <td>R$7.345,32</td>
-                                            <td className="btnRemove">
-                                                <ImBin></ImBin>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Climatizador portátil</td>
-                                            <td>R$7.345,32</td>
-                                            <td>1</td>
-                                            <td>R$7.345,32</td>
-                                            <td className="btnRemove">
-                                                <ImBin></ImBin>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="additional-costs"></div>
-                        </div>
-                    </Content>
-                </>
-            )}
-        </Container>
+                        </ModalBody>
+                    </ModalContent>
+                </Container>
+            </Modal>
+        </>
     );
 }

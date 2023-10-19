@@ -81,6 +81,10 @@ export const Container = styled.div`
         .title-value {
             display: grid;
             grid-template-columns: 3fr 1fr;
+
+            input {
+                padding: 2rem;
+            }
         }
 
         .add-product {

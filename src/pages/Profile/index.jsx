@@ -8,7 +8,6 @@ import { Menu } from '../../components/Menu';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
-import { Modal } from '../../components/Modal';
 import { ModalCreateBudgets } from '../../components/ModalCreateBudgets';
 import { ModalDetails } from '../../components/ModalDetails';
 
@@ -36,14 +35,8 @@ export function Profile() {
 
     return (
         <Container>
-            <Modal
-                isOpen={modalOpen}
-                setIsOpen={setModalOpen}
-                backdropClose={true}
-            >
-                {/* <ModalCreateBudgets></ModalCreateBudgets> */}
-                <ModalDetails></ModalDetails>
-            </Modal>
+            {/* <ModalCreateBudgets></ModalCreateBudgets> */}
+            <ModalDetails></ModalDetails>
             <Sidebar>
                 <Menu></Menu>
             </Sidebar>

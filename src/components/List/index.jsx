@@ -2,7 +2,7 @@ import { Container } from './styles';
 
 import { MdAdd } from 'react-icons/md';
 
-import { Card } from '../Card';
+import { CardItem } from '../Card';
 
 export function List({ data, index: listIndex }) {
     return (
@@ -18,12 +18,12 @@ export function List({ data, index: listIndex }) {
 
             <ul>
                 {data.cards.map((card, index) => (
-                    <Card
+                    <CardItem
                         key={card.id}
                         listIndex={listIndex}
                         index={index}
                         data={card}
-                    ></Card>
+                    ></CardItem>
                 ))}
             </ul>
         </Container>

@@ -6,7 +6,7 @@ export const Container = styled.div`
         height: 100vh;
 
         background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
-
+        color: ${({ theme }) => theme.COLORS.WHITE};
         transition: all 0.2s;
 
         box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -109,6 +109,7 @@ export const Container = styled.div`
         max-width: 100px;
 
         background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
+        color: ${({ theme }) => theme.COLORS.WHITE};
     }
 
     .sidebar.closed .collapse {
@@ -125,7 +126,7 @@ export const Container = styled.div`
     }
 
     .sidebar.closed .row:hover {
-        color: ${({ theme }) => theme.COLORS.BLUE_300};
+        color: ${({ theme }) => theme.COLORS.BLUE_400};
     }
 
     .sidebar.closed .row .title {

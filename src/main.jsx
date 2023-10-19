@@ -8,7 +8,7 @@ import { Routes } from './routes';
 
 import { AuthProvider } from './hooks/auth';
 
-import { NextUIProvider } from '@nextui-org/react';
+import { ChakraProvider } from '@chakra-ui/react';
 
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
@@ -16,7 +16,7 @@ import GlobalStyles from './styles/global';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <NextUIProvider>
+        <ChakraProvider>
             <ThemeProvider theme={theme}>
                 <DndProvider backend={HTML5Backend}>
                     <GlobalStyles></GlobalStyles>
@@ -25,6 +25,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     </AuthProvider>
                 </DndProvider>
             </ThemeProvider>
-        </NextUIProvider>
+        </ChakraProvider>
     </React.StrictMode>
 );

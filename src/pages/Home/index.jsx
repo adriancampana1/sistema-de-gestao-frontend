@@ -7,7 +7,6 @@ import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { Board } from '../../components/Board';
 
-import { Modal } from '../../components/Modal';
 import { ModalCreateBudgets } from '../../components/ModalCreateBudgets';
 
 import { FiSearch, FiExternalLink, FiSliders } from 'react-icons/fi';
@@ -20,13 +19,6 @@ export function Home() {
 
     return (
         <Container>
-            <Modal
-                isOpen={modalOpen}
-                setIsOpen={setModalOpen}
-                backdropClose={true}
-            >
-                <ModalCreateBudgets></ModalCreateBudgets>
-            </Modal>
             <Sidebar>
                 <Menu></Menu>
             </Sidebar>
@@ -42,10 +34,7 @@ export function Home() {
                 </div>
 
                 <div className="btn">
-                    <Button
-                        title="+ Criar novo orçamento"
-                        onClick={() => setModalOpen(true)}
-                    ></Button>
+                    <ModalCreateBudgets></ModalCreateBudgets>
                 </div>
             </Header>
             <Content>

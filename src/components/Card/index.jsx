@@ -5,12 +5,22 @@ import { useDrag, useDrop } from 'react-dnd';
 import BoardContext from '../Board/context';
 import { Container, Label } from './styles';
 
-import { Modal } from '../Modal';
 import { ModalDetails } from '../ModalDetails';
+
+import {
+    Card,
+    CardHeader,
+    Heading,
+    CardBody,
+    Text,
+    Stack,
+    CardFooter,
+    Button,
+} from '@chakra-ui/react';
 
 import { BsArrowsAngleExpand } from 'react-icons/bs';
 
-export function Card({ data, index, listIndex }) {
+export function CardItem({ data, index, listIndex }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [productData, setProductData] = useState(null);
 
@@ -66,28 +76,17 @@ export function Card({ data, index, listIndex }) {
 
     return (
         <Container ref={ref} $isdragging={isDragging}>
-            <Modal
-                isOpen={modalOpen}
-                setIsOpen={setModalOpen}
-                backdropClose={true}
-            >
-                <ModalDetails productData={{ ...productData }}></ModalDetails>
-            </Modal>
-            <section>
-                <button
-                    onClick={() => {
-                        setProductData(data);
-                        setModalOpen(true);
-                    }}
-                >
-                    <BsArrowsAngleExpand></BsArrowsAngleExpand>
-                </button>
-            </section>
-
-            <main>
-                <p>{data.content}</p>
-                <span>{data.description}</span>
-            </main>
+            <Card>
+                <CardBody>
+                    <Stack>
+                        <Heading size="md">{data.content}</Heading>
+                        <Text opacity="0.8">{data.description}</Text>
+                    </Stack>
+                </CardBody>
+                <CardFooter>
+                    <ModalDetails productData={{ ...data }}></ModalDetails>
+                </CardFooter>
+            </Card>
         </Container>
     );
 }

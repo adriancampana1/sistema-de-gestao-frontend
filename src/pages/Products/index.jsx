@@ -8,7 +8,6 @@ import { Button } from '../../components/Button';
 import { ProductCard } from '../../components/ProductCard';
 import { Dropdown } from '../../components/Dropdown';
 
-import { Modal } from '../../components/Modal';
 import { ModalCreateBudgets } from '../../components/ModalCreateBudgets';
 import { ModalDetails } from '../../components/ModalDetails';
 
@@ -22,14 +21,8 @@ export function Products() {
 
     return (
         <Container>
-            <Modal
-                isOpen={modalOpen}
-                setIsOpen={setModalOpen}
-                backdropClose={true}
-            >
-                <ModalCreateBudgets></ModalCreateBudgets>
-                {/* <ModalDetails></ModalDetails> */}
-            </Modal>
+            <ModalCreateBudgets></ModalCreateBudgets>
+            {/* <ModalDetails></ModalDetails> */}
             <Sidebar>
                 <Menu></Menu>
             </Sidebar>
