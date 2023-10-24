@@ -2,10 +2,10 @@ import { useRef, useContext, useState } from 'react';
 
 import { useDrag, useDrop } from 'react-dnd';
 
-import BoardContext from '../Board/context';
+import BoardContext from '../../Board/context';
 import { Container, Label } from './styles';
 
-import { ModalDetails } from '../ModalDetails';
+import { ModalDetails } from '../../Modal/ModalDetails';
 
 import {
     Card,
@@ -21,7 +21,6 @@ import {
 import { BsArrowsAngleExpand } from 'react-icons/bs';
 
 export function CardItem({ data, index, listIndex }) {
-    const [modalOpen, setModalOpen] = useState(false);
     const [productData, setProductData] = useState(null);
 
     const ref = useRef();
@@ -79,7 +78,7 @@ export function CardItem({ data, index, listIndex }) {
             <Card>
                 <CardBody>
                     <Stack>
-                        <Heading size="md">{data.content}</Heading>
+                        <Heading size="2md">{data.content}</Heading>
                         <Text opacity="0.8">{data.description}</Text>
                     </Stack>
                 </CardBody>

@@ -12,7 +12,7 @@ import { FcKindle } from 'react-icons/fc';
 import { ImBin, ImCheckmark, ImPlus } from 'react-icons/im';
 import { SlNotebook } from 'react-icons/sl';
 
-import { api } from '../../services/api';
+import { api } from '../../../services/api';
 
 import {
     Button,
@@ -29,10 +29,12 @@ import {
     EditableTextarea,
 } from '@chakra-ui/react';
 
-import { CustomEditableInput } from '../CustomEditableInput';
+import { CustomEditableInput } from '../../CustomEditableInput';
+import { CustomAlert } from '../../CustomAlert';
 
 export function ModalDetails({ productData }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [isDeletConfirmed, setIsDeletConfirmed] = useState(false);
 
     const [addProducts, setAddProducts] = useState(false);
 
@@ -129,9 +131,12 @@ export function ModalDetails({ productData }) {
         }
     }
 
-    async function handleDeleteBusiness() {
-        await api.delete(`/businesses/${productData.id}`);
-        alert('Orçamento removido com sucesso!');
+    async function handleDeletConfirm(confirmation) {
+        setIsDeletConfirmed(confirmation);
+        if (isDeletConfirmed) {
+            await api.delete(`/businesses/${productData.id}`);
+            alert('Orçamento removido com sucesso!');
+        }
     }
 
     return (
@@ -141,8 +146,8 @@ export function ModalDetails({ productData }) {
             <Modal onClose={onClose} isOpen={isOpen} isCentered size="6xl">
                 <ModalOverlay />
                 <Container>
-                    <ModalContent padding="5">
-                        <ModalHeader paddingTop="20">
+                    <ModalContent padding="5" marginTop="5">
+                        <ModalHeader>
                             <Header>
                                 <div className="business-data">
                                     <div className="business-title">
@@ -153,17 +158,9 @@ export function ModalDetails({ productData }) {
                                         </h2>
                                     </div>
                                 </div>
-                                <div className="control-btn">
-                                    <button
-                                        className="delete-card"
-                                        onClick={handleDeleteBusiness}
-                                    >
-                                        Excluir
-                                    </button>
-                                </div>
                             </Header>
                         </ModalHeader>
-                        <ModalCloseButton size="lg" margin="3" />
+                        <ModalCloseButton size="lg" margin="10" />
                         <ModalBody>
                             {productData && (
                                 <>
@@ -517,6 +514,12 @@ export function ModalDetails({ productData }) {
                                 </>
                             )}
                         </ModalBody>
+                        <ModalFooter justifyContent="center">
+                            <CustomAlert
+                                className="delete-card"
+                                deletConfirm={handleDeletConfirm}
+                            ></CustomAlert>
+                        </ModalFooter>
                     </ModalContent>
                 </Container>
             </Modal>

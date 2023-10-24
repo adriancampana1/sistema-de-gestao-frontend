@@ -4,12 +4,15 @@ export const Container = styled.div`
     width: 100%;
     height: 100vh;
     display: grid;
+    position: relative;
 
     grid-template-columns: auto 1fr;
     grid-template-rows: 100px auto;
     grid-template-areas:
         'menu header'
         'menu content';
+
+    background-color: ${({ theme }) => theme.COLORS.WHITE};
 `;
 
 export const Sidebar = styled.div`
@@ -22,7 +25,7 @@ export const Header = styled.header`
     align-items: center;
     grid-template-columns: 1fr 1fr;
 
-    margin: 3rem;
+    margin: 3rem 5rem;
 
     .search {
         display: grid;
@@ -59,9 +62,14 @@ export const Header = styled.header`
 export const Content = styled.div`
     grid-area: content;
 
+    overflow-x: auto;
     overflow-y: auto;
 
-    margin: 3rem;
+    margin: 3rem 5rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 `;
 
 export const Filters = styled.div`

@@ -7,14 +7,13 @@ import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { Board } from '../../components/Board';
 
-import { ModalCreateBudgets } from '../../components/ModalCreateBudgets';
+import { ModalCreateBudgets } from '../../components/Modal/CreateBudgets';
 
 import { FiSearch, FiExternalLink, FiSliders } from 'react-icons/fi';
 
 import BoardContext from '../../components/Board/context';
 
 export function Home() {
-    const [modalOpen, setModalOpen] = useState(false);
     const [search, setSearch] = useState('');
 
     return (

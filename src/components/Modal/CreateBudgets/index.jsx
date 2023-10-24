@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { Container, Header } from './styles';
 
-import { api } from '../../services/api';
+import { api } from '../../../services/api';
 
 import { FcBriefcase } from 'react-icons/fc';
 import { ImBin, ImCheckboxChecked } from 'react-icons/im';
@@ -20,6 +20,7 @@ import {
     Input,
     Textarea,
     Select,
+    color,
 } from '@chakra-ui/react';
 
 export function ModalCreateBudgets() {
@@ -82,7 +83,7 @@ export function ModalCreateBudgets() {
         <>
             <Button
                 onClick={onOpen}
-                backgroundColor="gray.600"
+                backgroundColor="gray.700"
                 padding="8"
                 fontSize="xl"
                 fontWeight="medium"

@@ -2,7 +2,7 @@ import { Container } from './styles';
 
 import { MdAdd } from 'react-icons/md';
 
-import { CardItem } from '../Card';
+import { CardItem } from '../Card/BusinessesCard';
 
 export function List({ data, index: listIndex }) {
     return (
@@ -29,3 +29,9 @@ export function List({ data, index: listIndex }) {
         </Container>
     );
 }
+
+// {listTitles.map((list, key) => (
+//     <header>
+//         <h2 key={key}>{list}</h2>
+//     </header>
+// ))}

@@ -8,8 +8,7 @@ import { Menu } from '../../components/Menu';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
-import { ModalCreateBudgets } from '../../components/ModalCreateBudgets';
-import { ModalDetails } from '../../components/ModalDetails';
+import { ModalDetails } from '../../components/Modal/ModalDetails';
 
 import { FiUser, FiMail, FiLock } from 'react-icons/fi';
 

@@ -1,28 +1,32 @@
-import { useState } from 'react';
+import { api } from '../../services/api';
 
 import { Container, Sidebar, Header, Content, Filters } from './styles';
+import { useEffect, useState } from 'react';
 
 import { Menu } from '../../components/Menu';
 import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
-import { ProductCard } from '../../components/ProductCard';
-import { Dropdown } from '../../components/Dropdown';
 
-import { ModalCreateBudgets } from '../../components/ModalCreateBudgets';
-import { ModalDetails } from '../../components/ModalDetails';
+import { ProductCard } from '../../components/Card/ProductCard';
+import { CreateProducts } from '../../components/Modal/CreateProducts';
 
-import { FiSearch, FiExternalLink, FiSliders, FiFilter } from 'react-icons/fi';
-import { FaBook, FaAddressCard } from 'react-icons/fa';
+import { FiSearch } from 'react-icons/fi';
 
-import { useEffect } from 'react';
+import { Select } from '@chakra-ui/react';
 
 export function Products() {
-    const [modalOpen, setModalOpen] = useState(false);
+    const [data, setData] = useState([]);
+
+    async function fetchProducts() {
+        const response = await api.get('/products');
+        setData(response.data);
+    }
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
 
     return (
         <Container>
-            <ModalCreateBudgets></ModalCreateBudgets>
-            {/* <ModalDetails></ModalDetails> */}
             <Sidebar>
                 <Menu></Menu>
             </Sidebar>
@@ -37,21 +41,29 @@ export function Products() {
                 </div>
 
                 <div className="btn">
-                    <Button
-                        title="+ Cadastrar novo produto"
-                        onClick={() => setModalOpen(true)}
-                    ></Button>
+                    <CreateProducts
+                        updateProducts={fetchProducts}
+                    ></CreateProducts>
                 </div>
             </Header>
             <Content>
                 <Filters>
                     <header>
                         <h2>Produtos cadastrados:</h2>
-                        <p>25 resultados encontados</p>
+                        <p>{data.length} resultados encontados</p>
                     </header>
-                    <Dropdown></Dropdown>
+                    <Select
+                        placeholder="Filtre por categoria"
+                        width={'auto'}
+                        fontSize="2xl"
+                        color="#080808"
+                        border="1px solid #c0c0c0"
+                    >
+                        <option value="">Industrial</option>
+                        <option value="">Portáteis</option>
+                    </Select>
                 </Filters>
-                <ProductCard></ProductCard>
+                <ProductCard updateProducts={fetchProducts}></ProductCard>
             </Content>
         </Container>
     );
