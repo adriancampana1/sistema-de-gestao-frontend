@@ -6,6 +6,8 @@ import { useAuth } from '../../hooks/auth';
 
 import { SidebarData } from './SidebarData';
 
+import { Link } from 'react-router-dom';
+
 import {
     FiArrowRightCircle,
     FiArrowLeftCircle,
@@ -39,22 +41,13 @@ export function Menu() {
                     <div className="sidebarList">
                         {SidebarData.map((val, key) => {
                             return (
-                                <li
-                                    key={key}
-                                    className="row"
-                                    id={
-                                        window.location.pathname == val.link
-                                            ? 'active'
-                                            : ''
-                                    }
-                                    onClick={() => {
-                                        window.location.pathname = val.link;
-                                    }}
-                                >
-                                    <div className="icon">{val.icon}</div>{' '}
-                                    <div className="title">
-                                        {menuCollapse ? '' : val.title}
-                                    </div>
+                                <li key={key} className="row">
+                                    <Link to={val.link}>
+                                        <div className="icon">{val.icon}</div>{' '}
+                                        <div className="title">
+                                            {menuCollapse ? '' : val.title}
+                                        </div>
+                                    </Link>
                                 </li>
                             );
                         })}
