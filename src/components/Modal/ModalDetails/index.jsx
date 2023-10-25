@@ -39,18 +39,16 @@ export function ModalDetails({ productData }) {
     const [addProducts, setAddProducts] = useState(false);
 
     const [businessTitle, setBusinessTitle] = useState(productData.title);
-
     const [businessPrice, setBusinessPrice] = useState(productData.price);
-
     const [businessStatus, setBusinessStatus] = useState(productData.status);
+    const [showBusinessDescription, setShowBusinessDescription] = useState();
+    const [businessDescription, setBusinessDescription] = useState('');
+    const [businessID, setBusinessID] = useState('');
 
     const [addNotes, setAddNotes] = useState(false);
     const [notes, setNotes] = useState(productData.notes);
     const [noteTitle, setNoteTitle] = useState('');
     const [noteDescription, setNoteDescription] = useState('');
-
-    const [showBusinessDescription, setShowBusinessDescription] = useState();
-    const [businessDescription, setBusinessDescription] = useState('');
 
     function handleShowAddProducts() {
         addProducts ? setAddProducts(false) : setAddProducts(true);
@@ -136,6 +134,7 @@ export function ModalDetails({ productData }) {
         if (isDeletConfirmed) {
             await api.delete(`/businesses/${productData.id}`);
             alert('Orçamento removido com sucesso!');
+            onClose();
         }
     }
 

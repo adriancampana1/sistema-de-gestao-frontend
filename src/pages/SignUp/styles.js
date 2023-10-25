@@ -11,6 +11,7 @@ export const Container = styled.div`
     justify-content: center;
 
     height: 100vh;
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_850};
 `;
 
 export const Background = styled.div`
@@ -21,7 +22,6 @@ export const Background = styled.div`
     z-index: -100;
 
     width: 100%;
-
     background-image: url(${background});
     background-position: center;
     background-size: cover;

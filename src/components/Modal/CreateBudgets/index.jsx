@@ -20,10 +20,15 @@ import {
     Input,
     Textarea,
     Select,
-    color,
 } from '@chakra-ui/react';
 
+import { useContext } from 'react';
+
+import { BoardContext } from '../../Board/context';
+
 export function ModalCreateBudgets() {
+    const { addProductToList } = useContext(BoardContext);
+
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const [addProducts, setAddProducts] = useState(false);
@@ -59,24 +64,34 @@ export function ModalCreateBudgets() {
             return alert('Digite o título do novo negócio.');
         }
 
-        await api.post('/businesses', {
-            title,
-            description,
-            negotiated_value: value,
-            status,
-            notes,
-        });
+        if (notes.length > 0) {
+            await api.post('/businesses', {
+                title,
+                description,
+                negotiated_value: value,
+                status,
+                notes,
+            });
+        } else {
+            await api.post('/businesses', {
+                title,
+                description,
+                negotiated_value: value,
+                status,
+            });
+        }
 
         const newProduct = {
             title,
             description,
             negotiated_value: value,
-            status,
+            category: status,
             notes,
         };
 
         alert('Negócio criado com sucesso!');
-        addProductsToList(newProduct);
+        addProductToList(newProduct);
+        onClose();
     }
 
     return (

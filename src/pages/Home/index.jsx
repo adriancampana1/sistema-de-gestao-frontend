@@ -1,17 +1,11 @@
-import { useState } from 'react';
-
+import React, { useState } from 'react';
 import { Container, Sidebar, Header, Content } from './styles';
-
 import { Menu } from '../../components/Menu';
 import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
 import { Board } from '../../components/Board';
-
+import { BoardContext } from '../../components/Board/context';
 import { ModalCreateBudgets } from '../../components/Modal/CreateBudgets';
-
-import { FiSearch, FiExternalLink, FiSliders } from 'react-icons/fi';
-
-import BoardContext from '../../components/Board/context';
+import { FiSearch } from 'react-icons/fi';
 
 export function Home() {
     const [search, setSearch] = useState('');
@@ -31,9 +25,16 @@ export function Home() {
                         onChange={(e) => setSearch(e.target.value)}
                     ></Input>
                 </div>
-
                 <div className="btn">
-                    <ModalCreateBudgets></ModalCreateBudgets>
+                    <BoardContext.Provider
+                        value={{
+                            addProductToList: () => {
+                                console.log('ta na home');
+                            },
+                        }}
+                    >
+                        <ModalCreateBudgets></ModalCreateBudgets>
+                    </BoardContext.Provider>
                 </div>
             </Header>
             <Content>

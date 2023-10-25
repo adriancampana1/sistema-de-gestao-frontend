@@ -2,7 +2,7 @@ import { useRef, useContext, useState } from 'react';
 
 import { useDrag, useDrop } from 'react-dnd';
 
-import BoardContext from '../../Board/context';
+import { BoardContext } from '../../Board/context';
 import { Container, Label } from './styles';
 
 import { ModalDetails } from '../../Modal/ModalDetails';
@@ -18,11 +18,7 @@ import {
     Button,
 } from '@chakra-ui/react';
 
-import { BsArrowsAngleExpand } from 'react-icons/bs';
-
 export function CardItem({ data, index, listIndex }) {
-    const [productData, setProductData] = useState(null);
-
     const ref = useRef();
 
     const { move } = useContext(BoardContext);

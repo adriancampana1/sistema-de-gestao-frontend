@@ -3,12 +3,11 @@ import { produce } from 'immer';
 import { Container } from './styles';
 import { api } from '../../services/api';
 
-import BoardContext from './context';
+import { BoardContext } from './context';
 import { List } from '../List';
 
 export function Board() {
     const [lists, setLists] = useState([]);
-    const [updatedLists, setUpdatedLists] = useState(lists);
 
     useEffect(() => {
         async function fetchData() {
@@ -44,32 +43,6 @@ export function Board() {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        setUpdatedLists(lists);
-    }, [lists]);
-
-    function addProductToList(newProduct) {
-        setLists((prevLists) => {
-            return produce(prevLists, (draft) => {
-                const list = draft.find((list) => list.title === card.category);
-
-                if (list) {
-                    list.cards.push(newProduct);
-                }
-            });
-        });
-    }
-
-    function removeProductFromList(listIndex, cardIndex) {
-        setLists((prevLists) => {
-            return produce(prevLists, (draft) => {
-                if (draft[listIndex] && draft[listIndex].cards[cardIndex]) {
-                    draft[listIndex].cards.splice(cardIndex, 1);
-                }
-            });
-        });
-    }
-
     function move(fromList, toList, from, to) {
         setLists(
             produce(lists, (draft) => {
@@ -81,10 +54,20 @@ export function Board() {
         );
     }
 
+    function addProductToList(product) {
+        setLists(
+            produce(lists, (draft) => {
+                console.log('passou');
+                const listIndex = product.category; // Use the appropriate list index where you want to add the product.
+                draft[listIndex].cards.push(product);
+            })
+        );
+    }
+
     return (
         <BoardContext.Provider value={{ lists, move, addProductToList }}>
             <Container>
-                {updatedLists.map((list, index) => (
+                {lists.map((list, index) => (
                     <List key={list.title} index={index} data={list}></List>
                 ))}
             </Container>

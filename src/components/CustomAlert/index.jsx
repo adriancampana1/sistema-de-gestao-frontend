@@ -54,10 +54,7 @@ export function CustomAlert({ deletConfirm }) {
                             </Button>
                             <Button
                                 colorScheme="red"
-                                onClick={() => {
-                                    onClose;
-                                    handleDeletConfirm();
-                                }}
+                                onClick={handleDeletConfirm}
                                 ml={3}
                             >
                                 Deletar
