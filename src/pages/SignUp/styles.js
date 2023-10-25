@@ -55,6 +55,10 @@ export const Form = styled.form`
 
         margin-top: 30px;
     }
+
+    input {
+        color: ${({ theme }) => theme.COLORS.WHITE};
+    }
 `;
 
 export const LinkToLogin = styled(Link)`
@@ -70,6 +74,7 @@ export const Title = styled.div`
     > h1 {
         font-size: 26px;
         margin-bottom: 5px;
+        color: ${({ theme }) => theme.COLORS.BACKGROUND_500};
     }
 `;
 

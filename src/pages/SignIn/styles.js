@@ -69,6 +69,7 @@ export const Title = styled.div`
     > h1 {
         font-size: 26px;
         margin-bottom: 5px;
+        color: ${({ theme }) => theme.COLORS.BACKGROUND_500};
     }
 
     > span {
