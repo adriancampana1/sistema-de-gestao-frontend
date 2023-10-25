@@ -41,14 +41,14 @@ export function Menu() {
                     <div className="sidebarList">
                         {SidebarData.map((val, key) => {
                             return (
-                                <li key={key} className="row">
-                                    <Link to={val.link}>
+                                <Link to={val.link}>
+                                    <li key={key} className="row">
                                         <div className="icon">{val.icon}</div>{' '}
                                         <div className="title">
                                             {menuCollapse ? '' : val.title}
                                         </div>
-                                    </Link>
-                                </li>
+                                    </li>
+                                </Link>
                             );
                         })}
                     </div>
