@@ -8,6 +8,8 @@ import { FiUser, FiLock } from 'react-icons/fi';
 
 import { useAuth } from '../../hooks/auth';
 
+import { Link } from 'react-router-dom';
+
 export function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -43,7 +45,9 @@ export function SignIn() {
                 <p>
                     Não tem uma conta? Registre-se{' '}
                     <span>
-                        <a href="/register">aqui</a>
+                        <a>
+                            <Link to="/register">aqui</Link>
+                        </a>
                     </span>
                     .
                 </p>
