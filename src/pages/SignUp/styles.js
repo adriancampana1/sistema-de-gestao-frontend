@@ -11,7 +11,6 @@ export const Container = styled.div`
     justify-content: center;
 
     height: 100vh;
-    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_850};
 `;
 
 export const Background = styled.div`
